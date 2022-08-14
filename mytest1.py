@@ -45,7 +45,7 @@ class Stats:
         # 从 UI 定义中动态 创建一个相应的窗口对象
         # 注意：里面的控件对象也成为窗口对象的属性了
         # 比如 self.ui.button , self.ui.textEdit
-        self.ui = QUiLoader().load('/home/zxf/forQt/uifile/arcuifile.ui')
+        self.ui = QUiLoader().load('arcuifile.ui')
         self.ui.pushButton.clicked.connect(self.handleCalc)
         self.ui.pushButton_2.clicked.connect(self.handleExcelXieru)
         self.ui.pushButton_3.clicked.connect(self.handleExcelyulan)
