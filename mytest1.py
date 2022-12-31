@@ -5,7 +5,9 @@ from PySide2 import QtCore
 from openpyxl import Workbook,load_workbook
 import PySide2
 # import json
-
+import os
+from docx import Document
+import re
 
 
 class excel_data:
@@ -119,6 +121,7 @@ class Stats:
         print(type(info))
 
     def handleExcelXieru(self):
+        self.ui.pushButton_2.setEnabled(False)
         hunningtuqiangdu = self.ui.comboBox.currentText()
         zhanglakongzhixishu=float(self.ui.lineEdit.text())
         fy=float(self.ui.lineEdit_2.text())
@@ -145,14 +148,14 @@ class Stats:
         sheet["F19"].value=float(self.ui.lineEdit_8.text())
         sheet["F20"].value=float(self.ui.lineEdit_9.text())
 
-        sheet["E25"].value=float(self.ui.lineEdit_10.text())
+        sheet["E25"].value=self.ui.lineEdit_10.text()
         sheet["E26"].value=float(self.ui.lineEdit_11.text())
         sheet["E27"].value=float(self.ui.lineEdit_12.text())
         sheet["E30"].value=float(self.ui.lineEdit_13.text())
         sheet["E32"].value=float(self.ui.lineEdit_14.text())
         sheet["E33"].value=float(self.ui.lineEdit_15.text())
         sheet["E35"].value=float(self.ui.lineEdit_16.text())
-        sheet["E36"].value=float(self.ui.lineEdit_17.text())
+        sheet["E36"].value=self.ui.lineEdit_17.text()
         sheet["E37"].value=float(self.ui.lineEdit_18.text())
         sheet["E38"].value=float(self.ui.lineEdit_19.text())
         sheet["E41"].value=float(self.ui.lineEdit_20.text())
@@ -177,6 +180,7 @@ class Stats:
 
         wb.save('newtest2.xlsx')
         print("finished")
+        self.ui.pushButton_2.setEnabled(True)
 
     def handleExcelyulan(self):
         hunningtuqiangdu = self.ui.comboBox.currentText()
@@ -192,10 +196,17 @@ class Stats:
         print(self.ui.label.text(),hunningtuqiangdu)
         print(self.ui.label_2.text(),type(temp))
 
+    def handleWord(self):
+        path = 'jisuanshu.docx'
+        path = os.path.join(os.getcwd(),path)
+        doc_jisuan = Document(path)
 
-        
-    # def excel_data_init(self):
-    #     self.ui.lineEdit.text()
+        for p in doc_jisuan.paragraphs:
+            p.text = p.text.replace("0.7×'part1-基本参数'!F17=D2","0.7×'part1-基本参数'!F17=7654")
+
+        doc_jisuan.save("new.docx")
+        doc_jisuan.close()
+
 
 
 if __name__ == "__main__":
